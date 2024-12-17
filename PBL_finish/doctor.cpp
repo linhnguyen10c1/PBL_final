@@ -42,7 +42,7 @@ void Doctor::update_info(sf::RenderWindow& window, sf::Event& event, int& closef
     TextBox room(startX1, startY + 2 * gapY, j, 11, g);
     TextBox experience_year(startX1, startY + 3 * gapY, k, 10, g, 30, 4);
     TextBox price(startX1, startY + 4 * gapY, l, 20, g, 30, 4);
-    Button submitButton("Submit", 400, 500, 100, 50, sf::Color::Blue, sf::Color::White);
+    Button submitButton("Submit", 400, 500, 100, 50, sf::Color(170, 220, 245), sf::Color::White);
 
     bool shouldClose = false;
     int gen;

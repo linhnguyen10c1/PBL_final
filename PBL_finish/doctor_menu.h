@@ -9,45 +9,6 @@
 #include <SFML/Graphics.hpp>
 #include "button.h"
 
-
-void where(long long ID_checking, LinkedList<Testing>& testing_list) {
-	int min_priority_1_patients = INT_MAX;
-	int min_total_waiting = INT_MAX;
-	Testing* assigned_test = nullptr;
-	Node<Testing>* current = testing_list.get_head();
-	while (current != nullptr) {
-		Testing& testing = current->data;
-		if (testing.get_id() == ID_checking && testing.get_status_checking() == "waiting") {
-			int priority_1_patients = testing_list.count_patients(testing.get_id_doctor(), "priority", testing.get_priority());
-			int total_waiting = testing_list.count_patients(testing.get_id_doctor(), "waiting");
-			if (testing.get_priority() == 1) {
-				if (priority_1_patients < min_priority_1_patients ||
-					(priority_1_patients == min_priority_1_patients && total_waiting < min_total_waiting)) {
-					min_priority_1_patients = priority_1_patients;
-					min_total_waiting = total_waiting;
-					assigned_test = &testing;
-				}
-			}
-			else {
-				if (total_waiting < min_total_waiting || (total_waiting == min_total_waiting && priority_1_patients < min_priority_1_patients)) {
-					min_total_waiting = total_waiting;
-					min_priority_1_patients = priority_1_patients;
-					assigned_test = &testing;
-				}
-			}
-		}
-		current = current->next;
-	}
-	if (assigned_test == nullptr) {
-		ErrorWindow("GO BACK GENERAL DOCTOR");
-		return;
-	}
-	ErrorWindow("You should go to at: " + (*assigned_test).get_room() + " room");
-	(*assigned_test).update_data_have_another_testing();
-	write_data_to_file(testing_list, "testings.txt");
-
-}
-
 // kiểm tra chuyên môn hóa của bác sĩ là gì, để phân ra menu
 int check_specialization(long long ID_doctor, LinkedList<Doctor>& doctor_list) {
 	Node<Doctor>* current = doctor_list.get_head();
@@ -107,7 +68,7 @@ void search_record_patient(long long ID_patient, sf::RenderWindow& window1, sf::
 	box.setOutlineThickness(2);
 	box.setOutlineColor(sf::Color::Blue);
 
-	Button expand("Expand", 800, 195, 80, 50, sf::Color::Blue, sf::Color::White);
+	Button expand("Expand", 800, 195, 80, 50, sf::Color(170, 220, 245), sf::Color::Black);
 
 	if (event1.type == sf::Event::MouseWheelScrolled) {
 		if (event1.mouseWheelScroll.delta > 0) {
@@ -314,12 +275,24 @@ void display_prescription_screen(
 	}
 }
 template <typename T>
-void checkingscreen(long long ID_checking, long long ID_doctor, LinkedList<T>& record_list, sf::RenderWindow& window1, sf::Event& event1) {
+void checkingscreen(long long ID_patient,long long ID_checking, long long ID_doctor, LinkedList<T>& record_list, sf::RenderWindow& window1, sf::Event& event1) {
 
 	sf::Font font;
 	if (!font.loadFromFile("consola.ttf")) {
 		ErrorWindow("Cannot load font file!");
 	}
+	LinkedList<Patient> patient_list;
+	read_data_from_file(patient_list, "patients.txt");
+	Node <Patient>* search = patient_list.get_head();
+	while (search != nullptr)
+	{
+		if (search->data.get_id() == ID_patient)
+		{
+			break;
+		}
+		search = search->next;
+	}
+	
 	Button general("Checking general", 100, 200, 200, 50, sf::Color::Blue, sf::Color::White);
 	Button Result("Result Testing", 100, 300, 200, 50, sf::Color::Blue, sf::Color::White);
 	Button Prescription("Prescription", 100, 400, 200, 50, sf::Color::Blue, sf::Color::White);
@@ -345,22 +318,17 @@ void checkingscreen(long long ID_checking, long long ID_doctor, LinkedList<T>& r
 			LinkedList<Testing> testing_list;
 			read_data_from_file_for_test(testing_list, "testings.txt");
 			// kiểm tra record có testing hay không
-			cout << "1";
 			if (record_list.checkExist_updateResult_for_record(ID_checking, "check_test_or_not"))
 			{
 				// nếu có
-				cout << "2";
 				cout << ID_checking;
 				testing_list.display_result_testing(ID_checking);
-				cout << "3";
 				// Kiểm tra xem kết quả testing đã được cập nhật bởi bác sĩ test hay chưa
 				if (testing_list.check_doctor_updated_result(ID_checking) == 1)
 				{
-					cout << "4";
 					// Cho phép bác sĩ General cập nhật kết quả cho record
 					record_list.checkExist_updateResult_for_record(ID_checking, "update_result");
 					write_data_to_file(record_list, "records.txt");
-					cout << "5";
 				}
 				else
 				{
@@ -391,13 +359,12 @@ void checkingscreen(long long ID_checking, long long ID_doctor, LinkedList<T>& r
 		}
 
 	}
-
+	search->data.show(window1);
 	window1.draw(Message);
 	general.draw(window1);
 	Result.draw(window1);
 	Prescription.draw(window1);
 	Appointment.draw(window1);
-
 
 
 }

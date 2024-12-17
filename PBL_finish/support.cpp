@@ -1,7 +1,58 @@
 ﻿#include "support.h"
 #include "button.h"
 #include <stdexcept>
+#include <regex>
+#include <string>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
+bool YesNoScreen(const std::string& titel, const std::string& mess) {
+    sf::RenderWindow window(sf::VideoMode(400, 200), titel, sf::Style::Titlebar | sf::Style::Close);
 
+    sf::Font font;
+    if (!font.loadFromFile("consola.ttf")) {
+        throw std::runtime_error("Không thể tải font!");
+    }
+
+    sf::Text messageText;
+    messageText.setFont(font);
+    messageText.setString(mess);
+    messageText.setCharacterSize(20);
+    messageText.setFillColor(sf::Color::Black);
+    messageText.setPosition(50, 50);
+
+    Button yesButton("Yes", 100, 120, 80, 40, sf::Color(170, 220, 245), sf::Color::Black);
+    Button noButton("No", 220, 120, 80, 40, sf::Color(170, 220, 245), sf::Color::Black);
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+                return false;
+            }
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                if (yesButton.isClicked(mousePos)) {
+                    window.close();
+                    return true;
+                }
+                if (noButton.isClicked(mousePos)) {
+                    window.close();
+                    return false;
+                }
+            }
+        }
+
+        window.clear(sf::Color::White);
+        window.draw(messageText);
+        yesButton.draw(window);
+        noButton.draw(window);
+        window.display();
+    }
+
+    return false;
+}
 void ErrorWindow(const std::string& message) {
     sf::RenderWindow errorWindow(sf::VideoMode(400, 200), "notice", sf::Style::Titlebar | sf::Style::Close);
 
@@ -17,7 +68,7 @@ void ErrorWindow(const std::string& message) {
     errorText.setFillColor(sf::Color::Black);
     errorText.setPosition(50, 50);
 
-    Button okButton("OK", 150, 120, 100, 50, sf::Color::Blue, sf::Color::White);
+    Button okButton("OK", 150, 120, 100, 50, sf::Color(170, 220, 245), sf::Color::White);
 
     while (errorWindow.isOpen()) {
         sf::Event event;
@@ -51,10 +102,43 @@ string kiem_tra_chi_so(const string& str) {
 }
 
 // Hàm kiểm tra chuỗi có phải dạng ngày-tháng-năm không (dd-mm-yyyy)
-string kiem_tra_ngay_thang_nam(const string& str) {
-    regex pattern(R"((0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4}))");
-    return regex_match(str, pattern) ? str : "";
+std::string kiem_tra_ngay_thang_nam(const std::string& str) {
+    std::regex pattern(R"((0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4}))");
+    if (!std::regex_match(str, pattern)) {
+        return "";
+    }
+
+    std::tm tm = {};
+    std::istringstream ss(str);
+    ss >> std::get_time(&tm, "%d-%m-%Y");
+    if (ss.fail()) {
+        return "";
+    }
+
+    // Check for valid date
+    int day = tm.tm_mday;
+    int month = tm.tm_mon + 1; // tm_mon is 0-based
+    int year = tm.tm_year + 1900; // tm_year is years since 1900
+
+    if (month == 2) {
+        bool isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+        if (day > 29 || (day == 29 && !isLeapYear)) {
+            return "";
+        }
+    } else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {
+        return "";
+    }
+
+    auto input_time = std::chrono::system_clock::from_time_t(std::mktime(&tm));
+    auto now = std::chrono::system_clock::now();
+
+    if (input_time >= now) {
+        return "";
+    }
+
+    return str;
 }
+
 
 // Hàm kiểm tra chuỗi có phải chỉ chứa số và số chữ số nằm từ 8 đến 12 không
 string kiem_tra_so_chu_so(const string& str) {

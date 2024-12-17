@@ -12,13 +12,15 @@
 #include "doctor.h"
 #include "linklist.h"
 #include "testing.h"
-
+#include "support.h"
 #include <SFML/Graphics.hpp>
 #include "button.h"
 
 using namespace std;
 
-//void where(long long ID_checking, LinkedList<Testing>& testing_list);
+class Testing;
+void where(long long ID_checking, LinkedList<Testing>& testing_list);
+
 class Record :public Checking {
 private:
     long long id_patient;
@@ -77,11 +79,11 @@ public:
         ss << st("Id checking", 15)
             << st("Id patient", 15)
             << Checking::setheader()
-            << st("diagnosis", 40)
+            << st("Diagnosis", 40)
             //<< st(status_patient,40)
-            << st("Is testing?", 13)
-            << st("transfer hospital?", 19)
-            << st("final_result", 50);
+            << st("Testing", 13)
+            << st("Transfer hospital", 19)
+            << st("Final result", 50);
         //<< "Doctor Note: " << doctor_note << ", "
         //<< "Follow-up Appointment: " << follow_up_appointment << ", "
         //<< "Cost: " << cost << ", "

@@ -65,27 +65,31 @@ public:
             << st(warnings, 40)
             << st(NSX, 14)
             << st(to_string(HSD), 4)
+            << "  "
             << st(to_string(quantity), 9)
+            << "  "
             << st(to_string(int(cost)), 5)
-            << " "
-            << st((is_deleted ? "Yes" : "No"), 5);
+            << "  "
+            << st((is_deleted ? "Yes" : "No"), 8);
         return ss.str();
     }
     string setheader() const {
         stringstream ss;
         ss << st("ID", 10)
-            << st("name", 17)
-            << st("type", 10)
-            << st("usage", 30)
-            << st("dosage", 15)
-            << st("side_effects", 35)
-            << st("warnings", 40)
-            << st("NSX", 14)
-            << st("HSD", 4)
-            << st("quantity", 9)
-            << st("cost", 5)
-            << " "
-            << st("i_de", 5);
+            << st("Name", 17)
+            << st("Type", 10)
+            << st("Usage", 30)
+            << st("Dosage", 15)
+            << st("Side_effects", 35)
+            << st("Warnings", 40)
+            << st("MFG", 14)
+            << st("EXP", 4)
+            << "  "
+            << st("Quantity", 9)
+            << "  "
+            << st("Cost", 5)
+            << "  "
+            << st("Deleted", 8);
         return ss.str();
     }
 

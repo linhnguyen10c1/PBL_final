@@ -83,10 +83,10 @@ public:
         stringstream ss;
         ss << st("ID doctor", 15)
             // << st("ID checking", 12)
-            << st("Priority", 9)
-            << st("Room", 5)
-            << st("Satus_checking", 16)
-            << st("I_de", 5);
+            << st("Priority", 12)
+            << st("Room", 8)
+            << st("Status checking", 16)
+            << st("Deleted", 15);
         /*<< st("email", 30)
         << st("phone", 11)
         << st(("i_de"), 5);*/

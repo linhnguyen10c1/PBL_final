@@ -19,37 +19,14 @@ void module_menu_admin(sf::RenderWindow& window, sf::Event& event, LinkedList<T>
 	int closeflag = 0;// neu cua so add dong thi khong luu node vao list vaf file
 	//sf::Color(70, 130, 180)
 	Button Display("Display list objects", 100, 195, 200, 50, sf::Color(135, 206, 235), sf::Color::Black);
-	Button Add("Add", 320, 195, 50, 50, sf::Color(135, 206, 235), sf::Color::Black);
+	Button Add("Add", 320, 195, 50, 50, sf::Color(100, 180, 220), sf::Color::Black);
 	// ??
 	sf::RectangleShape shape;
-	shape.setSize(sf::Vector2f(1600, 80));
+	shape.setSize(sf::Vector2f(1710, 80));
 	shape.setFillColor(sf::Color(200, 200, 200));
 	shape.setPosition(50, 180);
 
-	sf::RectangleShape update;
-	update.setSize(sf::Vector2f(80, 50));
-	update.setFillColor(sf::Color(135, 206, 235));
-	update.setPosition(400, 195);
-
-	sf::RectangleShape updatepass;
-	updatepass.setSize(sf::Vector2f(150, 50));
-	updatepass.setFillColor(sf::Color(135, 206, 235));
-	updatepass.setPosition(510, 195);
-
-	sf::RectangleShape Delete;
-	Delete.setSize(sf::Vector2f(80, 50));
-	Delete.setFillColor(sf::Color(135, 206, 235));
-	Delete.setPosition(690, 195);
-
-	sf::RectangleShape recover;
-	recover.setSize(sf::Vector2f(80, 50));
-	recover.setFillColor(sf::Color(135, 206, 235));
-	recover.setPosition(810, 195);
-
-	sf::RectangleShape expand;
-	expand.setSize(sf::Vector2f(80, 50));
-	expand.setFillColor(sf::Color(135, 206, 235));
-	expand.setPosition(930, 195);
+	
 
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -57,7 +34,12 @@ void module_menu_admin(sf::RenderWindow& window, sf::Event& event, LinkedList<T>
 			flag1 = 1;
 		}
 		else if (Add.isClicked(mousePos)) {
-			sf::RenderWindow window1(sf::VideoMode(800, 600), "add");
+			string titel;
+			if (filename == "doctors.txt") titel = "Add Doctor";
+			if (filename == "patients.txt") titel = "Add Patient";
+			if (filename == "medicines.txt") titel = "Add Medicine";
+			if (filename == "records.txt") titel = "Add Record";
+			sf::RenderWindow window1(sf::VideoMode(800, 600), titel);
 			T::set_id = list.get_id_from_file();
 			T item;
 			item.set_data(window1, event, closeflag);
@@ -67,11 +49,6 @@ void module_menu_admin(sf::RenderWindow& window, sf::Event& event, LinkedList<T>
 	}
 
 	window.draw(shape);
-	window.draw(update);
-	window.draw(updatepass);
-	window.draw(Delete);
-	window.draw(recover);
-	window.draw(expand);
 	if (flag1 == 1) {
 		list.display_list(textboarderflag, window, event, list, filename);
 	}
@@ -126,14 +103,32 @@ void menu_admin(sf::RenderWindow& window) {
 			}
 
 			if (flag == 1) { 
+				doctor.setButtonColor(sf::Color(170, 220, 245));
+				patient.setButtonColor(sf::Color(51, 153, 204));
+				medicines.setButtonColor(sf::Color(51, 153, 204));
+				medical.setButtonColor(sf::Color(51, 153, 204));
 				module_menu_admin(window, event, doctor_list, "doctors.txt"); 
 			}
 			//Button doctor("Manage doctors", 50, 50, x, y, sf::Color(135, 206, 235), sf::Color::Black);
 			if (flag == 2) { 
+				doctor.setButtonColor(sf::Color(51, 153, 204));
+				patient.setButtonColor(sf::Color(170, 220, 245));
+				medicines.setButtonColor(sf::Color(51, 153, 204));
+				medical.setButtonColor(sf::Color(51, 153, 204));
 				module_menu_admin(window, event, patient_list, "patients.txt");
 			}
-			if (flag == 3) module_menu_admin(window, event, medicine_list, "medicines.txt");
-			if (flag == 4) module_menu_admin(window, event, record_list, "records.txt");
+			if (flag == 3) { 
+				doctor.setButtonColor(sf::Color(51, 153, 204));
+				patient.setButtonColor(sf::Color(51, 153, 204));
+				medicines.setButtonColor(sf::Color(170, 220, 245));
+				medical.setButtonColor(sf::Color(51, 153, 204));
+				module_menu_admin(window, event, medicine_list, "medicines.txt"); }
+			if (flag == 4) { 
+				doctor.setButtonColor(sf::Color(51, 153, 204));
+				patient.setButtonColor(sf::Color(51, 153, 204));
+				medicines.setButtonColor(sf::Color(51, 153, 204));
+				medical.setButtonColor(sf::Color(170, 220, 245));
+				module_menu_admin(window, event, record_list, "records.txt"); }
 			//if (flag == 5) module_menu_admin(window, event, doctor_list, "doctors.txt");
 		}
 

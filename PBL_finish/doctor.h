@@ -30,24 +30,34 @@ public:
     ////////////////////////////////////////////////////////////////////////////
     string toString() const {
         stringstream ss;
-        ss << Person::toString() // Gi? ð?nh r?ng Person có phýõng th?c toString  
-            << st(password, 18)
+        ss << Person::toString() 
+            << "  "
             << st(specialization, 25)
             << st(room, 7)
             << st(to_string(experience_year), 9)
+            << "  "
             << st(to_string(patients_waiting), 11)
-            << st(to_string(int(price)), 6);
+            << st(to_string(int(price)), 6)
+            << "  "
+            << st(password, 18)
+            << st((is_deleted ? "Yes" : "No"), 8);
+
         return ss.str();
     }
     string setheader() const {
         stringstream ss;
         ss << Person::setheader()
-            << st("password", 18)
-            << st("specialization", 25)
-            << st("room", 7)
-            << st("exp_year", 9)
-            << st("p_waiting", 11)
-            << st("price", 6);
+            << "  "
+            << st("Specialization", 25)
+            << st("Room", 7)
+            << st("Exp_year", 9)
+            << "  "
+            << st("Waiting", 11)
+            << st("Price", 6)
+            << "  "
+            << st("Password", 18)
+            << st(("Deleted"), 8);
+
         return ss.str();
     }
 

@@ -21,7 +21,7 @@ void showErrorWindow(const std::string& message) {
     errorText.setPosition(50, 50);          // Vị trí của thông báo
 
     // Tạo nút "OK"
-    Button okButton("OK", 150, 120, 100, 50, sf::Color::Blue, sf::Color::White);
+    Button okButton("OK", 150, 120, 100, 50, sf::Color(170, 220, 245), sf::Color::Black);
 
     // Vòng lặp sự kiện của cửa sổ thông báo lỗi
     while (errorWindow.isOpen()) {

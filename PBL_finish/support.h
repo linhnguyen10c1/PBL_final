@@ -14,7 +14,7 @@ string kiem_tra_ngay_thang_nam(const string& str);
 string kiem_tra_so_chu_so(const string& str);
 void textbefore(sf::RenderWindow& window, std::string who, const float startX,
     const float startY, const float startX1, const float gapY);
-
+bool YesNoScreen(const std::string& titel, const std::string& mess);
 std::string tickgender(int x, int y, int z, sf::RenderWindow& window, sf::Event event);
 std::string header(int i, std::string who);
 std::string headerd(int i);

@@ -48,11 +48,11 @@ public:
         ss << st(to_string(ID), 10)
             << st(name, 20)
             << st(birthday, 11)
+            << "  "
             << st(gender, 10)
             << st(address, 20)
             << st(email, 30)
-            << st(phone, 11)
-            << st((is_deleted ? "Yes" : "No"), 5);
+            << st(phone, 11);
         return ss.str();
     }
     string setheader() const {
@@ -60,11 +60,11 @@ public:
         ss << st("ID", 10)
             << st("Name", 20)
             << st("Birthday", 11)
+            << "  "
             << st("Gender", 10)
             << st("Address", 20)
             << st("Email", 30)
-            << st("Phone", 11)
-            << st(("I_de"), 5);
+            << st("Phone", 11);
         return ss.str();
     }
 };

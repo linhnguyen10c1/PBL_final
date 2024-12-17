@@ -175,11 +175,11 @@ void LinkedList<T>::display_list(bool& textboarderflag, sf::RenderWindow& window
 
 
 
-    Button update("Update", 400, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::White);
-    Button updatepass("Update password", 510, 195, 150, 50, sf::Color(100, 180, 220), sf::Color::White);
-    Button Delete("Delete", 690, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::White);
-    Button recover("Recover", 810, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::White);
-    Button expand("Expand", 930, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::White);
+    Button update("Update", 400, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::Black);
+    Button updatepass("Update password", 510, 195, 150, 50, sf::Color(100, 180, 220), sf::Color::Black);
+    Button Delete("Delete", 690, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::Black);
+    Button recover("Recover", 810, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::Black);
+    Button expand("Expand", 930, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::Black);
 
 
     Button Search("Search", 1670, 195, 80, 50, sf::Color(135, 206, 235), sf::Color::Black);
@@ -241,14 +241,18 @@ void LinkedList<T>::display_list(bool& textboarderflag, sf::RenderWindow& window
 
                     }
                     if (Delete.isClicked(mousePos)) {
-                        ChoseNode->data.update_is_deleted();
-                        write_data_to_file(list, filename);
+                        if (YesNoScreen("Delete", "     Do you want delete?")) {
+                            ChoseNode->data.update_is_deleted();
+                            write_data_to_file(list, filename);
+                        }
                         //searchflag = 1;
 
                     }
                     if (recover.isClicked(mousePos)) {
-                        ChoseNode->data.update_is_recovered();
-                        write_data_to_file(list, filename);
+                        if (YesNoScreen("Recover", "    Do you want recover?")) {
+                            ChoseNode->data.update_is_recovered();
+                            write_data_to_file(list, filename);
+                        }
                         //searchflag = 1;
                     }
                     if (filename == "records.txt" && expand.isClicked(mousePos)) {
@@ -259,18 +263,26 @@ void LinkedList<T>::display_list(bool& textboarderflag, sf::RenderWindow& window
                 }
 
                 //////////
-                Delete.draw(window);
-                if (filename == "records.txt") {
-                    update.setButtonColor(sf::Color::Red);
-                    updatepass.setButtonColor(sf::Color::Red);
+                if (filename != "records.txt") { 
+                    Delete.setPosition(690, 195);
+                    recover.setPosition(810, 195);
+                    expand.setPosition(930, 195);
+                    update.draw(window);
                 }
-                if (filename != "records.txt") expand.setButtonColor(sf::Color::Red);
-                expand.draw(window);
-                update.draw(window);
+                else {
+                    Delete.setPosition(400, 195);
+					recover.setPosition(510, 195);
+					expand.setPosition(620, 195);
+                    expand.draw(window);
+                }
+                if (filename != "records.txt" && filename != "medicines.txt") {
+                    updatepass.draw(window);
+                }
                 if (filename == "medicines.txt") {
-                    updatepass.setButtonColor(sf::Color::Red);
+                    Delete.setPosition(520, 195);
+                    recover.setPosition(640, 195);
                 }
-                updatepass.draw(window);
+                Delete.draw(window);
                 recover.draw(window);
                 box.setPosition(50, posittionY);
             }
@@ -349,14 +361,14 @@ void LinkedList<T>::add_for_test(const T& item) {
 void testscreen(long long ID_checking, long long ID_doctor);
 void search_record_patient(long long ID_patient, sf::RenderWindow& window1, sf::Event& event1);
 template <typename T>
-void checkingscreen(long long ID_checking, long long ID_doctor, LinkedList<T>& record_list, sf::RenderWindow& window1, sf::Event& event1);
+void checkingscreen(long long ID_patient,long long ID_checking, long long ID_doctor, LinkedList<T>& record_list, sf::RenderWindow& window1, sf::Event& event1);
 
 
 template <typename T>
 void LinkedList<T>::display_list_waiting(std::string typedoctor, bool& clickflag, int& flag, long long ID_doctor, LinkedList<T>& list, sf::RenderWindow& window, sf::Event& event) const {
 
     int itemHeight = 20;
-    int visibleItems = 3;
+    int visibleItems = 20;
     int totalItems = list.size();
     static float posittionY = 0;
     static int scrollOffset = 0;
@@ -505,7 +517,7 @@ void LinkedList<T>::display_list_waiting(std::string typedoctor, bool& clickflag
         search_record_patient(ChoseNode->data.get_id_patient(), window, event);
     }
     if (flag == 3 && typedoctor == "general") {
-        checkingscreen(ChoseNode->data.get_id(), ID_doctor, list, window, event);
+        checkingscreen(ChoseNode->data.get_id_patient(),ChoseNode->data.get_id(), ID_doctor, list, window, event);
     }
     if (loop == 1 && flag == 3 && typedoctor == "detail") {
         testscreen(ChoseNode->data.get_id(), ID_doctor);

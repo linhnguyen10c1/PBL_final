@@ -1,4 +1,4 @@
-#include "patient.h"
+Ôªø#include "patient.h"
 
 long long Patient::set_id = 2000000;
 
@@ -24,7 +24,7 @@ void Patient::update_info(sf::RenderWindow& window, sf::Event& event, int& close
         j = 13 * 8 + 10,
         g = 15;
     const float startX1 = 600;
-    const float gapY = 50; // Kho?ng c·ch gi?a c·c TextBox
+    const float gapY = 50; // Kho?ng c√°ch gi?a c√°c TextBox
 
 
     TextBox nameBox(startX, startY + gapY, a, 20, g);
@@ -66,9 +66,8 @@ void Patient::update_info(sf::RenderWindow& window, sf::Event& event, int& close
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 if (submitButton.isClicked(mousePos)) {
                     if (nameBox.getContent().empty() || birthdayBox.getContent().empty() /*|| genderBox.getContent().empty()*/
-                        || addressBox.getContent().empty() || emailBox.getContent().empty() || phoneBox.getContent().empty()
-                        || allergy.getContent().empty() || phone_family.getContent().empty()) {
-                        ErrorWindow("Please enter both all box."); // C?p nh?t thÙng b·o l?i  
+                        || addressBox.getContent().empty() || allergy.getContent().empty() || phone_family.getContent().empty()) {
+                        ErrorWindow("Please enter both all box."); // C?p nh?t th√¥ng b√°o l?i  
                     }
                     else {
 
@@ -82,7 +81,7 @@ void Patient::update_info(sf::RenderWindow& window, sf::Event& event, int& close
                         this->allergy = allergy.getContent();
                         this->phone_family = phone_family.getContent();
 
-                        shouldClose = true; // –Ûng c?a s? n?u c? hai Ù ? nh?p ?y ?
+                        shouldClose = true; // ƒê√≥ng c?a s? n?u c? hai √¥ ƒë? nh?p ƒë?y ƒë?
                     }
                 }
             }
@@ -151,7 +150,7 @@ void Patient::display() const {
     //    j = 13 * 8 + 10,
     //    g = 15;
     //const float startX1 = 1400;
-    //const float gapY = 50; // Kho?ng c·ch gi?a c·c TextBox
+    //const float gapY = 50; // Kho?ng c√°ch gi?a c√°c TextBox
     //sf::Font font;
     //if (!font.loadFromFile("consola.ttf")) {
     //    ErrorWindow("Cannot load font file!");
@@ -165,7 +164,7 @@ void Patient::display() const {
     //sf::Text allergyText(allergy, font, 15);
     //sf::Text phoneFamilyText(phone_family, font, 15);
 
-    //// C‡i m‡u cho c·c o?n v„n b?n
+    //// C√†i m√†u cho c√°c ƒëo?n vƒÉn b?n
     //nameText.setFillColor(sf::Color::Blue);
     //birthdayText.setFillColor(sf::Color::Blue);
     //genderText.setFillColor(sf::Color::Blue);
@@ -175,7 +174,7 @@ void Patient::display() const {
     //allergyText.setFillColor(sf::Color::Blue);
     //phoneFamilyText.setFillColor(sf::Color::Blue);
 
-    //// Kh?i t?o c·c TextBox
+    //// Kh?i t?o c√°c TextBox
     //TextBox nameBox(startX, startY + gapY, a, 20, g);
     //TextBox birthdayBox(startX, startY + 2 * gapY, b, 11, g);
     //TextBox genderBox(startX, startY + 3 * gapY, c, 10, g);
@@ -186,7 +185,7 @@ void Patient::display() const {
     //TextBox allergyBox(startX1, startY + gapY, h, 15, g);
     //TextBox phoneFamilyBox(startX1, startY + 2 * gapY, j, 13, g);
 
-    //// –?t v? trÌ c?a t?ng text sao cho n?m gi?a c·c TextBox
+    //// ƒê?t v? tr√≠ c?a t?ng text sao cho n?m gi?a c√°c TextBox
     //nameText.setPosition(startX , startY + gapY + g / 2.0f);
     //birthdayText.setPosition(startX , startY + 2 * gapY + g / 2.0f);
     //genderText.setPosition(startX , startY + 3 * gapY + g / 2.0f);
@@ -199,7 +198,7 @@ void Patient::display() const {
 
 
 
-    //// V? c·c TextBox lÍn c?a s?
+    //// V? c√°c TextBox l√™n c?a s?
     //textbefore(window, "patient", startX, startY + 7.5f, startX1, gapY);
     //nameBox.draw(window);
     //birthdayBox.draw(window);
@@ -217,6 +216,45 @@ void Patient::display() const {
     //window.draw(phoneText);
     //window.draw(allergyText);
     //window.draw(phoneFamilyText);
+}
+void Patient::show(sf::RenderWindow& window) {
+    sf::Font font;
+    if (!font.loadFromFile("consola.ttf")) {
+        throw std::runtime_error("Kh√¥ng th·ªÉ t·∫£i font!");
+    }
+
+    std::vector<std::string> info = {
+        "Name: " + name,
+        "Birthday: " + birthday,
+        "Gender: " + gender,
+        "Address: " + address,
+        "Email: " + email,
+        "Phone: " + phone,
+        "Allergy: " + allergy,
+        "Phone Family: " + phone_family
+    };
+
+    float startX = 400;
+    float startY = 200;
+    float gapY = 50;
+    sf::RectangleShape box;
+    box.setSize(sf::Vector2f(400, 420));
+    box.setPosition(startX-30, startY-30);
+    box.setFillColor(sf::Color::White);
+    box.setOutlineThickness(5);
+    box.setOutlineColor(sf::Color::Black);
+	window.draw(box);
+
+        for (size_t i = 0; i < info.size(); ++i) {
+            sf::Text text;
+            text.setFont(font);
+            text.setString(info[i]);
+            text.setCharacterSize(20);
+            text.setFillColor(sf::Color::Black);
+            text.setPosition(startX, startY + i * gapY);
+            window.draw(text);
+        }
+       // window.display();
 }
 
 void Patient::read_a_object_from_file(const string& line) {
