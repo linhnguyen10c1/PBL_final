@@ -942,5 +942,5 @@ void Record::testing_detail(long long ID_checking, int priority, sf::RenderWindo
     //    }
 
     //} while (choice != 0);
-}
+//}
 
