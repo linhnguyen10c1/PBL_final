@@ -1,0 +1,22 @@
+4000000,Aspirin,Tablet,Treats headaches,4 tablets,Nausea-dizziness,Do not use if allergic to aspirin,20-01-2022,24,78,10.5,0
+4000001,Paracetamol,Tablet,Relieves fever,4 tablets,Tiredness-drowsiness,Avoid if liver disease,05-05-2021,36,208,8,0
+4000002,Cough Syrup,Syrup,Relieves cough,4 doses (40ml),Drowsiness-mild dizziness,Do not use in children under 2,10-10-2020,12,150,5,0
+4000003,Vitamin C,Tablet,Boosts immunity,2 tablets,No side effects,None,08-08-2022,24,250,12,0
+4000004,Amoxicillin,Tablet,Treats bacterial infections,3 tablets,Stomach pain-diarrhea,Avoid in penicillin allergy,02-02-2022,24,100,15,0
+4000005,Ibuprofen,Tablet,Relieves pain,3 tablets,Dizziness-headache,Avoid in people with heart conditions,11-11-2021,30,75,7.5,0
+4000006,Antacid,Powder,Neutralizes stomach acid,4g,Mild nausea,Avoid in high blood pressure patients,07-07-2021,36,50,3.5,0
+4000007,Omeprazole,Tablet,Treats acid reflux,1 tablet,Headache-dizziness,Avoid if allergic to omeprazole,03-03-2022,24,200,11,0
+4000008,Amiodarone,Tablet,Treats arrhythmia,2 tablets,Chest pain-dizziness,Use only under doctor supervision,06-06-2020,24,30,20,0
+4000009,Metformin,Tablet,Controls blood sugar,2 tablets,Abdominal pain-nausea,Avoid in kidney disease,05-05-2022,24,120,9.5,0
+4000010,Loperamide,Tablet,Controls diarrhea,4 tablets,Avoid in people with intestinal,09-07-2005,9,36,80,2.2,0
+4000011,Prednisone,Tablet,Reduces inflammation,4 tablets,Weight gain-increased appetite,Avoid if diabetic,08-08-2021,24,100,18,0
+4000012,Clopidogrel,Tablet,Prevents blood clots,1 tablet,Bleeding-headache,Avoid in active bleeding,04-04-2022,24,150,10,0
+4000013,Diphenhydramine,Tablet,Relieves allergy symptoms,4 tablets,Drowsiness-dry mouth,Do not use with alcohol,12-12-2021,24,60,7,0
+4000014,Alprazolam,Tablet,Treats anxiety,3 tablets,Drowsiness-dizziness,Avoid alcohol,01-01-2022,36,40,25,0
+4000015,Levothyroxine,Tablet,Treats hypothyroidism,1 tablet,No side effects,None,06-06-2021,24,80,22,0
+4000016,Furosemide,Tablet,Treats edema,2 tablets,Dizziness-dehydration,Avoid in kidney disease,07-07-2022,24,70,6,0
+4000017,Lisinopril,Tablet,Treats high blood pressure,1 tablet,Dizziness-fatigue,Avoid if pregnant,10-10-2021,24,90,5.5,0
+4000018,Citalopram,Tablet,Treats depression,2 tablets,Drowsiness-dry mouth,Avoid if allergic to SSRIs,02-02-2022,24,120,15,0
+4000019,Doxycycline,Tablet,Treats bacterial infections,2 tablets,Nausea-vomiting,Avoid in children under 8,03-03-2022,24,50,13.5,0
+4000020,Zolpidem,Tablet,Treats insomnia,1 tablet,Drowsiness-headache,Do not use with alcohol,11-11-2021,36,40,12,0
+4000021,BHA,Syrup,Improve Vitamin,3 tablets,No,No,20-09-2021,36,30,10,0

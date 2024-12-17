@@ -1,0 +1,25 @@
+2000000,John Doe,pass1,10-02-1985,Male,123 Elm St,john.doe@example.com,0123456789,0,Peanuts,0987654321
+2000001,Jane Smith,pass2,22-07-1990,Male,456 Oak St,jane.smith@example.com,0234567890,0,Gluten,0123456789
+2000002,HaHa,Brown09,20-03-19887,Male,DaNang,brown@123gmail.com,0123456789,0,No,0123789475
+2000003,Emily Johnson,pass4,30-04-1995,Male,101 Maple St,emily.johnson@example.com,0456789012,0,None,0456789012
+2000004,David Wilson,pass5,12-08-1978,Female,202 Birch St,david.wilson@example.com,0567890123,0,Shellfish,0567890123
+2000005,Linda Martinez,pass6,03-03-1987,Female,303 Cedar St,linda.martinez@example.com,0678901234,0,Nuts,0678901234
+2000006,James Taylor,giaandeptry,18-09-1981,Female,404 Redwood St,james.taylor@example.com,0789012345,0,Penicillin,0789012345
+2000007,Sarah Davis,pass8,25-06-1990,Female,505 Willow St,sarah.davis@example.com,0890123456,0,None,0890123456
+2000008,Robert Anderson,pass9,13-01-1983,Male,606 Cherry St,robert.anderson@example.com,0901234567,0,Peanuts,0901234567
+2000009,Barbara Thomas,pass10,29-11-1992,Female,707 Chestnut St,barbara.thomas@example.com,0912345678,0,Penicillin,0912345678
+2000010,Thomas White,pass11,07-07-1986,Male,808 Ash St,thomas.white@example.com,0923456789,0,Gluten,0923456789
+2000011,Patricia Jackson,pass12,10-12-1980,Female,909 Cedar St,patricia.jackson@example.com,0934567890,0,None,0934567890
+2000012,Richard Clark,pass13,20-03-1975,Male,1010 Pine St,richard.clark@example.com,0945678901,0,Shellfish,0945678901
+2000013,Jennifer Harris,pass14,28-05-1994,Female,1111 Oak St,jennifer.harris@example.com,0956789012,0,Lactose,0956789012
+2000014,William Lewis,smile,15-02-1988,Male,1212 Maple St,william.lewis@example.com,0967890123,0,Nuts,0967890123
+2000015,Amy Walker,pass16,23-08-1991,Female,1313 Birch St,amy.walker@example.com,0978901234,0,Gluten,0978901234
+2000016,George Scott,pass17,05-07-1984,Male,1414 Cedar St,george.scott@example.com,0989012345,0,Peanuts,0989012345
+2000017,Isabella Martinez,pass18,17-12-1993,Female,1515 Pine St,isabella.martinez@example.com,0990123456,0,Penicillin,0990123456
+2000018,Matthew Evans,pass19,22-09-1979,Male,1616 Ash St,matthew.evans@example.com,1001234567,0,Shellfish,1001234567
+2000019,Olivia Clark,pass20,30-04-1989,Female,1717 Redwood St,olivia.clark@example.com,1012345678,0,Lactose,1012345678
+2000020,LinDa,bVQwT,30-04-1999,Female,Vinh,Lin@gmail.com,0123457689,0,No,0123987654
+2000021,ddfdsfdsfs,ABjS2,09-07-2005,male,dsadsadsad,dsadsadsadsadsdsadsa,98765432,0,hgf,0987654321
+2000022,gia bao,cvYCL,09-07-2005,Male,pnx,asdsa@gmail.com,0386515903,0,nut,0917276724
+2000023,Linda,ocBOD,29-09-2005,Female,HaNoi,lin@gmail.com,012345678,0,peanut,0112345656
+2000024,Thuy Linh,linhne,15-05-2005,Male,Vinh,linhquyhop10c1@gmail.com,012345667,0,peanut,0123456789
