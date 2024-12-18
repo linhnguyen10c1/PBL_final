@@ -20,7 +20,7 @@ private:
 
 public:
     void display() const;
-    void set_data(long long id_checking, const string& type, int priority, const string& part_body);
+    int set_data(long long id_checking, const string& type, int priority, const string& part_body);
     //dùng ð? c?p nh?t k?t qu? t? bác s? c?n lâm sàn
     void update_data();
 
@@ -32,7 +32,7 @@ public:
     }
     long long get_id_patient();
     bool get_testing_or_not()const { return true; }
-    void check_condition_doctor(const string& type);
+    int check_condition_doctor(const string& type);
     void read_a_object_from_file(const string& line);
     void write_a_object_to_file(ofstream& file);
     string toString() const {

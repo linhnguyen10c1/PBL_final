@@ -18,7 +18,7 @@ template <typename T>
 void module_menu_admin(sf::RenderWindow& window, sf::Event& event, LinkedList<T>& list, const string& filename) {
 	int closeflag = 0;// neu cua so add dong thi khong luu node vao list vaf file
 	//sf::Color(70, 130, 180)
-	Button Display("Display list objects", 100, 195, 200, 50, sf::Color(135, 206, 235), sf::Color::Black);
+	Button Display("Display list objects", 100, 195, 200, 50, sf::Color(100, 180, 220), sf::Color::Black);
 	Button Add("Add", 320, 195, 50, 50, sf::Color(100, 180, 220), sf::Color::Black);
 	// ??
 	sf::RectangleShape shape;
@@ -139,7 +139,7 @@ void menu_admin(sf::RenderWindow& window) {
 		if (flag == 3) module_menu_admin(window, event, medicine_list, "medicines.txt");
 		if (flag == 4) module_menu_admin(window, event, record_list, "records.txt");
 		//if (flag == 5) module_menu_admin(window, event, doctor_list, "doctors.txt");
-		doctor.setButtonColor(sf::Color(135, 206, 235));
+		//doctor.setButtonColor(sf::Color(135, 206, 235));
 		doctor.draw(window);
 		patient.draw(window);
 		medicines.draw(window);

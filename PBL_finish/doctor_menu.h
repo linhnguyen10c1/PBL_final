@@ -53,7 +53,7 @@ void search_record_patient(long long ID_patient, sf::RenderWindow& window1, sf::
 
 
 	int itemHeight = 20;
-	int visibleItems = 3;
+	int visibleItems = 20;
 	int totalItems = record_list.size();
 	static float posittionY;
 	static int scrollOffset = 0;
@@ -150,11 +150,9 @@ void search_record_patient(long long ID_patient, sf::RenderWindow& window1, sf::
 
 	}
 }
+
 template <typename T>
-void display_prescription_screen(
-	LinkedList<T>& record_list,
-	long long ID_checking,
-	long long ID_doctor) {
+void display_prescription_screen(LinkedList<T>& record_list,long long ID_checking,long long ID_doctor) {
 	LinkedList<Medicine> medicine_list;
 	LinkedList<Prescription> prescription_list;
 	read_data_from_file(medicine_list, "medicines.txt");
@@ -274,6 +272,7 @@ void display_prescription_screen(
 		window.display();
 	}
 }
+
 template <typename T>
 void checkingscreen(long long ID_patient,long long ID_checking, long long ID_doctor, LinkedList<T>& record_list, sf::RenderWindow& window1, sf::Event& event1) {
 
@@ -284,6 +283,7 @@ void checkingscreen(long long ID_patient,long long ID_checking, long long ID_doc
 	LinkedList<Patient> patient_list;
 	read_data_from_file(patient_list, "patients.txt");
 	Node <Patient>* search = patient_list.get_head();
+	// là sao đoạn này rối quá
 	while (search != nullptr)
 	{
 		if (search->data.get_id() == ID_patient)
@@ -304,7 +304,7 @@ void checkingscreen(long long ID_patient,long long ID_checking, long long ID_doc
 
 	if (event1.type == sf::Event::MouseButtonPressed && event1.mouseButton.button == sf::Mouse::Left) {
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window1);
-
+		// nếu kích vào khám tổng quát
 		if (general.isClicked(mousePos)) {
 
 			if (record_list.check_a_doctor_has_ID_checking(ID_checking, ID_doctor, "update"))
@@ -313,7 +313,7 @@ void checkingscreen(long long ID_patient,long long ID_checking, long long ID_doc
 			}
 			else Message.setString("General result updated");
 		}
-
+		// nếu 
 		if (Result.isClicked(mousePos)) {
 			LinkedList<Testing> testing_list;
 			read_data_from_file_for_test(testing_list, "testings.txt");
@@ -373,8 +373,8 @@ void testscreen(long long ID_checking, long long ID_doctor) {
 	LinkedList<Testing> testing_list;
 	read_data_from_file_for_test(testing_list, "testings.txt");
 	testing_list.check_test_having_another_test(ID_checking, ID_doctor);
-	write_data_to_file(testing_list, "testings.txt");
-	where(ID_checking, testing_list);
+		write_data_to_file(testing_list, "testings.txt");
+		where(ID_checking, testing_list);
 }
 
 void Menu_general_doctor(long long ID_doctor, LinkedList<Record>& record_list, LinkedList<Doctor>& doctor_list, sf::RenderWindow& window) {
@@ -397,7 +397,6 @@ void Menu_general_doctor(long long ID_doctor, LinkedList<Record>& record_list, L
 
 				if (WaitingList.isClicked(mousePos)) {
 					//read_data_from_file(record_list, "records.txt");
-					flag = 1;
 					flag1 = 1;
 					clickflag = true;
 				}
@@ -538,7 +537,7 @@ void menu_doctor(long long ID_doctor, sf::RenderWindow& window) {
 
 				if (information.isClicked(mousePos)) {
 					int forcallfunction = 1;
-					sf::RenderWindow window1(sf::VideoMode(800, 600), "Manage");
+					sf::RenderWindow window1(sf::VideoMode(800, 600), "Manage personal information");
 					current1->data.update_info(window1, event, forcallfunction);
 					if (forcallfunction != 2) write_data_to_file(doctor_list, "doctors.txt");
 

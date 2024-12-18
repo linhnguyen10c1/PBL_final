@@ -344,9 +344,9 @@ void Record::set_data(sf::RenderWindow& window, sf::Event& event, int& closeflag
                                 ErrorWindow("List empty");
                             }
                             while (current != nullptr) {
-                                if (stoll(ID.getContent()) == current->data.get_id()) {
+                                if (stoll(ID.getContent()) == current->data.get_id() && current->data.get_is_deleted() == false) {
                                     id_patient = stoll(ID.getContent());
-                                    patient_exists = false;
+                                    patient_exists = false;// vấn đề xóa rồi vẫn thêm vào khám được bình thường
                                     break;
                                 }
                                 current = current->next;
@@ -562,7 +562,7 @@ void Record::update_data() {
 
     // Trạng thái của Testing và Transfer
     testing_or_not = false;
-    bool transfer_hospital = false;
+    transfer_hospital = false;
 
 
 
@@ -616,6 +616,11 @@ void Record::update_data() {
                     if (!heartRateBox.getContent().empty() && !bloodPressureBox.getContent().empty() &&
                         !symptomBox.getContent().empty() && !diagnosisBox.getContent().empty() &&
                         !statusPatientBox.getContent().empty()) {
+                        heart = stod(heartRateBox.getContent());
+                        blood = stod(bloodPressureBox.getContent());
+                        symptom = symptomBox.getContent();
+                        diagnosis = diagnosisBox.getContent();
+                        status_patient = statusPatientBox.getContent();
                         update_result_by_doctor();
                         return;
 
@@ -673,13 +678,14 @@ void Record::update_data() {
             return;
         }
         
-        if (transfer_hospital) {
+        else if (transfer_hospital) {
             heart = stod(heartRateBox.getContent());
             blood = stod(bloodPressureBox.getContent());
             symptom = symptomBox.getContent();
             diagnosis = diagnosisBox.getContent();
             status_patient = statusPatientBox.getContent();
             status_checking = "completed";
+            transfer_hospital = true;
             update_end_day();
             cost = 0;
             return;
@@ -691,6 +697,9 @@ void Record::update_data() {
     diagnosis = diagnosisBox.getContent();
     status_patient = statusPatientBox.getContent();
 }
+
+
+
 void Record::testing_detail(long long ID_checking, int priority, sf::RenderWindow& window) {
     LinkedList<Testing> testing_list;
     read_data_from_file_for_test(testing_list, "testings.txt");
@@ -701,72 +710,55 @@ void Record::testing_detail(long long ID_checking, int priority, sf::RenderWindo
         return;
     }
 
-    // TextBox để nhập liệu
-    TextBox partBodyInput(100, 100, 300, 40, 20);
+    // Tạo cửa sổ lớn hơn
+    window.create(sf::VideoMode(800, 500), "Testing Detail");
 
-    sf::Text label("Enter Partbody:", font, 20);
-    label.setFillColor(sf::Color::Black); // Màu cho thông báo lỗi  
-    label.setPosition(100, 50);
+    // TextBox để nhập liệu cho từng phần
+    TextBox partBodyInputXray(300, 50, 300, 40, 20);
+    TextBox partBodyInputEndoscopy(300, 100, 300, 40, 20);
+    TextBox partBodyInputUltrasound(300, 150, 300, 40, 20);
 
-    // Các checkbox liên quan đến partbody
-    sf::RectangleShape xrayCheckbox(sf::Vector2f(20, 20));
-    xrayCheckbox.setPosition(450, 50);
-    xrayCheckbox.setFillColor(sf::Color::White);
-    xrayCheckbox.setOutlineColor(sf::Color::Black);
-    xrayCheckbox.setOutlineThickness(2);
+    // Label chung
+    sf::Text label("Enter Part of Body:", font, 20);
+    label.setFillColor(sf::Color::Black);
+    label.setPosition(300, 16);
 
-    sf::Text xrayLabel("X-ray", font, 20);
-    xrayLabel.setFillColor(sf::Color::Black);
-    xrayLabel.setPosition(480, 50);
+    // Các checkbox và label
+    std::vector<sf::RectangleShape> checkboxes;
+    std::vector<sf::Text> labels;
+    std::vector<TextBox*> textBoxes; // Danh sách các ô nhập liệu liên quan đến checkbox
 
-    sf::RectangleShape endoscopyCheckbox(sf::Vector2f(20, 20));
-    endoscopyCheckbox.setPosition(450, 100);
-    endoscopyCheckbox.setFillColor(sf::Color::White);
-    endoscopyCheckbox.setOutlineColor(sf::Color::Black);
-    endoscopyCheckbox.setOutlineThickness(2);
+    // Tên các loại kiểm tra
+    std::vector<std::string> testTypes = { "X-ray", "Endoscopy", "Ultrasound", "Blood and Urine Test", "Electrocardiogram" };
+    std::vector<TextBox*> partBodyInputs = { &partBodyInputXray, &partBodyInputEndoscopy, &partBodyInputUltrasound };
 
-    sf::Text endoscopyLabel("Endoscopy", font, 20);
-    endoscopyLabel.setFillColor(sf::Color::Black);
-    endoscopyLabel.setPosition(480, 100);
+    // Tạo checkbox và label
+    for (size_t i = 0; i < testTypes.size(); ++i) {
+        sf::RectangleShape checkbox(sf::Vector2f(20, 20));
+        checkbox.setPosition(100, 50 + i * 50);
+        checkbox.setFillColor(sf::Color::White);
+        checkbox.setOutlineColor(sf::Color::Black);
+        checkbox.setOutlineThickness(2);
+        checkboxes.push_back(checkbox);
 
-    sf::RectangleShape ultrasoundCheckbox(sf::Vector2f(20, 20));
-    ultrasoundCheckbox.setPosition(450, 150);
-    ultrasoundCheckbox.setFillColor(sf::Color::White);
-    ultrasoundCheckbox.setOutlineColor(sf::Color::Black);
-    ultrasoundCheckbox.setOutlineThickness(2);
+        sf::Text text(testTypes[i], font, 20);
+        text.setFillColor(sf::Color::Black);
+        text.setPosition(130, 50 + i * 50);
+        labels.push_back(text);
 
-    sf::Text ultrasoundLabel("Ultrasound", font, 20);
-    ultrasoundLabel.setFillColor(sf::Color::Black);
-    ultrasoundLabel.setPosition(480, 150);
+        // Chỉ gắn TextBox cho 3 loại kiểm tra đầu tiên (phần body cần nhập)
+        if (i < 3) {
+            textBoxes.push_back(partBodyInputs[i]);
+        }
+        else {
+            textBoxes.push_back(nullptr);
+        }
+    }
 
-    // Các checkbox khác không liên quan tới partbody
-    sf::RectangleShape bloodTestCheckbox(sf::Vector2f(20, 20));
-    bloodTestCheckbox.setPosition(100, 300);
-    bloodTestCheckbox.setFillColor(sf::Color::White);
-    bloodTestCheckbox.setOutlineColor(sf::Color::Black);
-    bloodTestCheckbox.setOutlineThickness(2);
+    Button Done("Done", 600, 300, 100, 40, sf::Color(135, 206, 235));
 
-    sf::Text bloodTestLabel("Blood & Urine Test", font, 20);
-    bloodTestLabel.setFillColor(sf::Color::Black);
-    bloodTestLabel.setPosition(130, 300);
-
-    sf::RectangleShape ecgCheckbox(sf::Vector2f(20, 20));
-    ecgCheckbox.setPosition(100, 350);
-    ecgCheckbox.setFillColor(sf::Color::White);
-    ecgCheckbox.setOutlineColor(sf::Color::Black);
-    ecgCheckbox.setOutlineThickness(2);
-
-    sf::Text ecgLabel("Electrocardiogram", font, 20);
-    ecgLabel.setFillColor(sf::Color::Black);
-    ecgLabel.setPosition(130, 350);
-
-    Button Done("Done", 200, 400, 100, 40, sf::Color(135, 206, 235));
-
-    bool xraySelected = false;
-    bool endoscopySelected = false;
-    bool ultrasoundSelected = false;
-    bool bloodTestSelected = false;
-    bool ecgSelected = false;
+    // Trạng thái checkbox
+    std::vector<bool> selected(testTypes.size(), false);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -776,105 +768,64 @@ void Record::testing_detail(long long ID_checking, int priority, sf::RenderWindo
                 start_checking = "0";
                 return;
             }
-            partBodyInput.handleEvent(event);
+
+            // Xử lý sự kiện cho từng ô nhập liệu
+            for (auto* textBox : partBodyInputs) {
+                if (textBox) textBox->handleEvent(event);
+            }
+
             if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
-                if (xrayCheckbox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    xraySelected = !xraySelected;
-                    xrayCheckbox.setFillColor(xraySelected ? sf::Color::Blue : sf::Color::White);
-                }
+                for (size_t i = 0; i < checkboxes.size(); ++i) {
+                    if (checkboxes[i].getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                        selected[i] = !selected[i];
+                        checkboxes[i].setFillColor(selected[i] ? sf::Color::Blue : sf::Color::White);
 
-                if (endoscopyCheckbox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    endoscopySelected = !endoscopySelected;
-                    endoscopyCheckbox.setFillColor(endoscopySelected ? sf::Color::Blue : sf::Color::White);
-                }
+                        if (selected[i]) {
+                            Testing item;
+                            std::string partBody = "";
+                            if (textBoxes[i]) partBody = textBoxes[i]->getContent();
+                            if (item.set_data(ID_checking, testTypes[i], priority, partBody)) {
+                                testing_list.add_for_test(item);
+                                write_data_to_file(testing_list, "testings.txt");
+                                checkboxes[i].setFillColor(selected[i] ? sf::Color::Blue : sf::Color::White);
+                            }
+                            else {
+                                ErrorWindow("Error: Could not add testing item to list.");
+                                checkboxes[i].setFillColor(selected[i] ? sf::Color::White : sf::Color::White);
+                            }
+                        }
+                    }
 
-                if (ultrasoundCheckbox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    ultrasoundSelected = !ultrasoundSelected;
-                    ultrasoundCheckbox.setFillColor(ultrasoundSelected ? sf::Color::Blue : sf::Color::White);
-                }
 
-                if (bloodTestCheckbox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    bloodTestSelected = !bloodTestSelected;
-                    bloodTestCheckbox.setFillColor(bloodTestSelected ? sf::Color::Blue : sf::Color::White);
                 }
-
-                if (ecgCheckbox.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    ecgSelected = !ecgSelected;
-                    ecgCheckbox.setFillColor(ecgSelected ? sf::Color::Blue : sf::Color::White);
-                }
-
                 if (Done.isClicked(mousePos)) {
-                    if (xraySelected) {
-                        std::string content = partBodyInput.getContent();
-                        if (!content.empty()) {
-                            Testing item;
-                            item.set_data(ID_checking, "X-ray", priority, content);
-                            testing_list.add_for_test(item);
-                        }
-                    }
-
-                    if (endoscopySelected) {
-                        std::string content = partBodyInput.getContent();
-                        if (!content.empty()) {
-                            Testing item;
-                            item.set_data(ID_checking, "Endoscopy", priority, content);
-                            testing_list.add_for_test(item);
-                        }
-                    }
-
-                    if (ultrasoundSelected) {
-                        std::string content = partBodyInput.getContent();
-                        if (!content.empty()) {
-                            Testing item;
-                            item.set_data(ID_checking, "Ultrasound", priority, content);
-                            testing_list.add_for_test(item);
-                        }
-                    }
-
-                    if (bloodTestSelected) {
-                        Testing item;
-                        item.set_data(ID_checking, "Blood and Urine Test", priority, "Blood and Urine");
-                        testing_list.add_for_test(item);
-                    }
-
-                    if (ecgSelected) {
-                        Testing item;
-                        item.set_data(ID_checking, "Electrocardiogram", priority, "Heart");
-                        testing_list.add_for_test(item);
-                    }
-
-                    write_data_to_file(testing_list, "testings.txt");
                     where(ID_checking, testing_list);
-                    return;
+                    window.close();
                 }
             }
+
+            window.clear(sf::Color::White);
+
+            // Vẽ các phần tử
+            window.draw(label);
+            for (size_t i = 0; i < checkboxes.size(); ++i) {
+                window.draw(checkboxes[i]);
+                window.draw(labels[i]);
+
+                if (textBoxes[i]) {
+                    textBoxes[i]->update();
+                    textBoxes[i]->draw(window);
+                }
+            }
+            Done.draw(window);
+
+            window.display();
         }
-
-        window.clear(sf::Color::White);
-
-        // Vẽ các phần tử
-        partBodyInput.update();
-        partBodyInput.draw(window);
-        window.draw(label);
-
-        window.draw(xrayCheckbox);
-        window.draw(xrayLabel);
-        window.draw(endoscopyCheckbox);
-        window.draw(endoscopyLabel);
-        window.draw(ultrasoundCheckbox);
-        window.draw(ultrasoundLabel);
-        window.draw(bloodTestCheckbox);
-        window.draw(bloodTestLabel);
-        window.draw(ecgCheckbox);
-        window.draw(ecgLabel);
-
-        Done.draw(window);
-
-        window.display();
     }
 }
+
 
     //int choice;
     //do

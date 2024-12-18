@@ -15,11 +15,11 @@ long long Testing::get_id_patient() {
 }
 
 
-void Testing::check_condition_doctor(const string& type) {
+int Testing::check_condition_doctor(const string& type) {
     LinkedList<Doctor> doctor_list;
     read_data_from_file(doctor_list, "doctors.txt");
     LinkedList<Testing> testing_list;
-    read_data_from_file(testing_list, "testings.txt");
+    read_data_from_file_for_test(testing_list, "testings.txt");
     Node<Doctor>* current = doctor_list.get_head();
     while (current != nullptr) {
         Doctor& doctor = current->data;
@@ -40,19 +40,27 @@ void Testing::check_condition_doctor(const string& type) {
         current = current->next;
     }
     write_data_to_file(doctor_list, "doctors.txt");
+    if (id_doctor2 == 0) return 0;
+    else return 1;
 }
 
-void Testing::set_data(long long ID_checking, const string& type, int priority, const string& part_body) {
+int Testing::set_data(long long ID_checking, const string& type, int priority, const string& part_body) {
     id_doctor2 = 0;
     id_checking = ID_checking;
     this->type = type;
     this->priority = priority;
     this->part_of_body_need_test = part_body;
     status_checking = "waiting";
-    check_condition_doctor(type);
-    ErrorWindow("ID doctor1: " + to_string(id_doctor) + "\n"
-        + "ID doctor2: " + to_string(id_doctor2) + "\n"
-        + "At room: " + room);
+    if (check_condition_doctor(type)) {
+        ErrorWindow("ID doctor1: " + to_string(id_doctor) + "\n"
+            + "ID doctor2: " + to_string(id_doctor2) + "\n"
+            + "At room: " + room);
+        return 1;
+    }
+    else {
+        ErrorWindow("No suitable doctor found.");
+        return 0;
+    }
     // xem bác sĩ khám type đó có tồn tại không, có thỏa mãn điều kiện khám bao nhiêu ca một ngày không
     // thì bác sĩ được gán vào, và tăng số lượng người đang chờ đợi
 

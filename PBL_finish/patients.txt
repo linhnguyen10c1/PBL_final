@@ -1,6 +1,6 @@
 2000000,John Doe,pass1,10-02-1985,Male,123 Elm St,john.doe@example.com,0123456789,0,Peanuts,0987654321
 2000001,Jane Smith,pass2,22-07-1990,Male,456 Oak St,jane.smith@example.com,0234567890,0,Gluten,0123456789
-2000002,HaHa,Brown09,20-03-19887,Male,DaNang,brown@123gmail.com,0123456789,1,No,0123789475
+2000002,HaHa,Brown09,20-03-19887,Male,DaNang,brown@123gmail.com,0123456789,0,No,0123789475
 2000003,Emily Johnson,pass4,30-04-1995,Male,101 Maple St,emily.johnson@example.com,0456789012,0,None,0456789012
 2000004,David Wilson,pass5,12-08-1978,Female,202 Birch St,david.wilson@example.com,0567890123,0,Shellfish,0567890123
 2000005,Linda Martinez,pass6,03-03-1987,Female,303 Cedar St,linda.martinez@example.com,0678901234,0,Nuts,0678901234
