@@ -68,7 +68,7 @@ void ErrorWindow(const std::string& message) {
     errorText.setFillColor(sf::Color::Black);
     errorText.setPosition(50, 50);
 
-    Button okButton("OK", 150, 120, 100, 50, sf::Color(170, 220, 245), sf::Color::White);
+    Button okButton("OK", 150, 120, 100, 50, sf::Color(170, 220, 245), sf::Color::Black);
 
     while (errorWindow.isOpen()) {
         sf::Event event;
@@ -196,7 +196,7 @@ void searchscreen(long long& ID, int& searchflag) {
 void textbefore(sf::RenderWindow& window, std::string who, const float startX = 100,
     const float startY = 50 + 7.5f, const float startX1 = 400, const float gapY = 50) {
     sf::Font font;
-    if (!font.loadFromFile("../Font/consola.ttf")) {
+    if (!font.loadFromFile("consola.ttf")) {
         ErrorWindow("Cannot load font file!");
     }
     for (int i = 1; i <= 10; i++) {
@@ -288,14 +288,14 @@ std::string header(int i, std::string who) {
 std::string headerd(int i) {
     if (i == 7) { return "Specialization:"; }
     else if (i == 8) { return "Room:"; }
-    else if (i == 9) { return "Experience_year:"; }
+    else if (i == 9) { return "Experience year:"; }
     else if (i == 10) { return "Price:"; }
     else { return ""; }
 }
 
 std::string headerp(int i) {
     if (i == 7) { return "Allergy:"; }
-    else if (i == 8) { return "Phone_family:"; }
+    else if (i == 8) { return "Phone family:"; }
     else { return ""; }
 }
 
@@ -304,10 +304,10 @@ std::string headerm(int i) {
     else if (i == 2) { return "Type:"; }
     else if (i == 3) { return "Usage:"; }
     else if (i == 4) { return "Dosage:"; }
-    else if (i == 5) { return "Side_effects:"; }
+    else if (i == 5) { return "Side effects:"; }
     else if (i == 6) { return "Warnings:"; }
     else if (i == 7) { return "NSX:"; }
-    else if (i == 8) { return "HSD:"; }
+    else if (i == 8) { return "EXP/Month:"; }
     else if (i == 9) { return "Quantity:"; }
     else if (i == 10) { return "Cost"; }
     else { return ""; }

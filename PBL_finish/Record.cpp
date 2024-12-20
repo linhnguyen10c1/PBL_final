@@ -192,7 +192,7 @@ void Record::display() const {
     TextBox statusPaymentBox(startX3, startY + gapY * 2, calcWidth(40), textSize + padding, padding);
     TextBox followUpAppointmentBox(startX3, startY + gapY * 3, calcWidth(40), textSize + padding, padding);
 
-    Button okButton("OK", 550, 700, 100, 50, sf::Color::Blue, sf::Color::White);
+    Button okButton("OK", 550, 700, 100, 50, sf::Color(170, 220, 245), sf::Color::Black);
 
     while (window.isOpen()) {
         sf::Event event;

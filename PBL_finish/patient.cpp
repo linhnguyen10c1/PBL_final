@@ -6,7 +6,7 @@ void Patient::set_data(sf::RenderWindow& window, sf::Event& event, int& closefla
     ID = set_id++;
     Patient::update_info(window, event, closeflag);
     stringstream ss;
-    ss << "patient has ID: " << ID << endl << "password: " << password;
+    ss << "Patient has ID: " << ID << endl << "Password: " << password;
     if (closeflag == 0) ErrorWindow(ss.str());
 }
 
@@ -27,17 +27,17 @@ void Patient::update_info(sf::RenderWindow& window, sf::Event& event, int& close
     const float gapY = 50; // Kho?ng cách gi?a các TextBox
 
 
-    TextBox nameBox(startX, startY + gapY, a, 20, g);
-    TextBox birthdayBox(startX, startY + 2 * gapY, b, 11, g, 30, 1);
+    TextBox nameBox(startX, startY + gapY, e, 20, g);
+    TextBox birthdayBox(startX, startY + 2 * gapY, e, 11, g, 30, 1);
     //TextBox genderBox(startX, startY + 3 * gapY, c, 10, g);
-    TextBox addressBox(startX, startY + 4 * gapY, d, 20, g);
+    TextBox addressBox(startX, startY + 4 * gapY, e, 20, g);
     TextBox emailBox(startX, startY + 5 * gapY, e, 30, g, 30, 2);
-    TextBox phoneBox(startX, startY + 6 * gapY, f, 11, g, 30, 3);
+    TextBox phoneBox(startX, startY + 6 * gapY, e, 11, g, 30, 3);
 
     TextBox allergy(startX1, startY + gapY, h, 15, g);
-    TextBox phone_family(startX1, startY + 2 * gapY, j, 13, g, 30, 3);
+    TextBox phone_family(startX1, startY + 2 * gapY, h, 13, g, 30, 3);
 
-    Button submitButton("Submit", 400, 500, 100, 50, sf::Color::Blue, sf::Color::White);
+    Button submitButton("Submit", 400, 500, 100, 50, sf::Color::Blue, sf::Color::Black);
 
     bool shouldClose = false;
     int gen;

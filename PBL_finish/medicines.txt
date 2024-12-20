@@ -4,7 +4,7 @@
 4000003,Vitamin C,Tablet,Boosts immunity,2 tablets,No side effects,None,08-08-2022,24,250,12,0
 4000004,Amoxicillin,Tablet,Treats bacterial infections,3 tablets,Stomach pain-diarrhea,Avoid in penicillin allergy,02-02-2022,24,100,15,0
 4000005,Ibuprofen,Tablet,Relieves pain,3 tablets,Dizziness-headache,Avoid in people with heart conditions,11-11-2021,30,75,7.5,0
-4000006,Antacid,Powder,Neutralizes stomach acid,4g,Mild nausea,Avoid in high blood pressure patients,07-07-2021,36,50,3.5,0
+4000006,Antacid,Powder,Neutralizes stomach acid,4g,Mild nausea,Avoid in high blood pressure patien,07-07-2021,36,50,3,0
 4000007,Omeprazole,Tablet,Treats acid reflux,1 tablet,Headache-dizziness,Avoid if allergic to omeprazole,03-03-2022,24,200,11,0
 4000008,Amiodarone,Tablet,Treats arrhythmia,2 tablets,Chest pain-dizziness,Use only under doctor supervision,06-06-2020,24,30,20,0
 4000009,Metformin,Tablet,Controls blood sugar,2 tablets,Abdominal pain-nausea,Avoid in kidney disease,05-05-2022,24,120,9.5,0

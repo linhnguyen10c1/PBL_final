@@ -51,6 +51,21 @@ public:
     int get_priority() const { return priority; }
     string get_room() const { return room; }
 
+
+    int get_month() {
+            if (start_checking == "0") {
+                return 0; // or handle this case as needed
+            }
+
+            std::istringstream ss(start_checking);
+            std::string day, month, year, time;
+            std::getline(ss, day, '-');
+            std::getline(ss, month, '-');
+            std::getline(ss, year, ' ');
+            std::getline(ss, time);
+            return std::stoi(month);
+        }
+
     // dành cho ngý?i dùng là manager
 
     // ch? ðý?c xóa giai ðo?n ð?u thôi, sau khi bác s? ghi vào r?i th? không ðý?c xóa n?a
@@ -69,10 +84,10 @@ public:
     string toString() const {
         stringstream ss;
         ss << st(to_string(id_doctor), 15)
-            << st(to_string(priority), 9)
-            << st(room, 5)
-            << st(status_checking, 16)
-            << st((is_deleted ? "Yes" : "No"), 5);
+            << st(to_string(priority), 12)
+            << st(room, 8)
+            << st(status_checking, 18)
+            << st((is_deleted ? "Yes" : "No"), 10);
         /*<< st(address, 20)
         << st(email, 30)
         << st(phone, 11)
@@ -85,8 +100,8 @@ public:
             // << st("ID checking", 12)
             << st("Priority", 12)
             << st("Room", 8)
-            << st("Status checking", 16)
-            << st("Deleted", 15);
+            << st("Status checking", 18)
+            << st("Deleted", 10);
         /*<< st("email", 30)
         << st("phone", 11)
         << st(("i_de"), 5);*/

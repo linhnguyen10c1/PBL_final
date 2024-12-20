@@ -62,7 +62,7 @@ public:
         header.setFont(font);
         header.setString(current->data.setheader());
         header.setFillColor(sf::Color::Blue);
-        header.setCharacterSize(15.5);
+        header.setCharacterSize(15);
         header.setPosition(50, 270); // Căn chỉnh vị trí của tiêu đề
         window.draw(header);
     }
@@ -98,7 +98,7 @@ template <typename T>
 int LinkedList<T>::check_id_password(long long id, string& password) {
     Node<T>* current = head;
     if (current == nullptr) {
-        cout << "Danh sách rỗng." << endl;
+        cout << "Empty List." << endl;
         return 0;
     }
     while (current) {
@@ -126,7 +126,7 @@ void LinkedList<T>::add(const T& item) {
     while (temp->next) {
         if (temp->data.get_id() == item.get_id()) {
             cout << temp->data.get_id() << ":" << item.get_id() << endl;
-            ErrorWindow("phan tu da ton tai trong list");
+            ErrorWindow("This existed in file");
             return;
         }
         temp = temp->next;
@@ -173,16 +173,14 @@ void LinkedList<T>::display_list(bool& textboarderflag, sf::RenderWindow& window
     box.setOutlineThickness(2);
     box.setOutlineColor(sf::Color(170, 220, 245));
 
+    Button update("Update", 440, 195, 100, 50, sf::Color(100, 180, 220), sf::Color::Black);
+    Button updatepass("Update password", 560, 195, 150, 50, sf::Color(100, 180, 220), sf::Color::Black);
+    Button Delete("Delete", 730, 195, 100, 50, sf::Color(100, 180, 220), sf::Color::Black);
+    Button recover("Recover", 850, 195, 100, 50, sf::Color(100, 180, 220), sf::Color::Black);
+    Button expand("Expand", 970, 195, 100, 50, sf::Color(100, 180, 220), sf::Color::Black);
+   
 
-
-    Button update("Update", 400, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::Black);
-    Button updatepass("Update password", 510, 195, 150, 50, sf::Color(100, 180, 220), sf::Color::Black);
-    Button Delete("Delete", 690, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::Black);
-    Button recover("Recover", 810, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::Black);
-    Button expand("Expand", 930, 195, 80, 50, sf::Color(100, 180, 220), sf::Color::Black);
-
-
-    Button Search("Search", 1670, 195, 80, 50, sf::Color(135, 206, 235), sf::Color::Black);
+    Button Search("Search", 1650, 195, 100, 50, sf::Color(135, 206, 235), sf::Color::Black);
 
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -263,27 +261,31 @@ void LinkedList<T>::display_list(bool& textboarderflag, sf::RenderWindow& window
                 }
 
                 //////////
-                if (filename != "records.txt") { 
-                    Delete.setPosition(690, 195);
-                    recover.setPosition(810, 195);
-                    expand.setPosition(930, 195);
+                if (filename == "doctors.txt" || filename == "patients.txt") {
+                    Delete.setPosition(730, 195);
+                    recover.setPosition(850, 195);
                     update.draw(window);
-                }
-                else {
-                    Delete.setPosition(400, 195);
-					recover.setPosition(510, 195);
-					expand.setPosition(620, 195);
-                    expand.draw(window);
-                }
-                if (filename != "records.txt" && filename != "medicines.txt") {
                     updatepass.draw(window);
+                    Delete.draw(window);
+                    recover.draw(window);
                 }
+
+                if(filename == "records.txt") {
+                    Delete.setPosition(440, 195);
+					recover.setPosition(560, 195);
+					expand.setPosition(680, 195);
+                    expand.draw(window);
+                    Delete.draw(window);
+                    recover.draw(window);
+                }
+
                 if (filename == "medicines.txt") {
-                    Delete.setPosition(520, 195);
-                    recover.setPosition(640, 195);
+                    Delete.setPosition(560, 195);
+                    recover.setPosition(680, 195);
+                    update.draw(window);
+                    Delete.draw(window);
+                    recover.draw(window);
                 }
-                Delete.draw(window);
-                recover.draw(window);
                 box.setPosition(50, posittionY);
             }
 

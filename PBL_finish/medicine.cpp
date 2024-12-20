@@ -122,18 +122,18 @@ void Medicine::update_info(sf::RenderWindow& window, sf::Event& event, int& clos
     const float gapY = 50; // Kho?ng cách gi?a các TextBox
 
 
-    TextBox nameBox(startX, startY + gapY, a, 17, g);
-    TextBox typeBox(startX, startY + 2 * gapY, b, 10, g);
-    TextBox usageBox(startX, startY + 3 * gapY, c, 30, g);
-    TextBox dosageBox(startX, startY + 4 * gapY, d, 15, g);
+    TextBox nameBox(startX, startY + gapY, e, 17, g);
+    TextBox typeBox(startX, startY + 2 * gapY, e, 10, g);
+    TextBox usageBox(startX, startY + 3 * gapY, e, 30, g);
+    TextBox dosageBox(startX, startY + 4 * gapY, e, 15, g);
     TextBox side_effectsBox(startX, startY + 5 * gapY, e, 35, g);
-    TextBox warningsBox(startX, startY + 6 * gapY, f, 40, g);
+    TextBox warningsBox(startX, startY + 6 * gapY, f+240, 40, g);
 
     TextBox NSX(startX1, startY + gapY, h, 14, g, 30, 1);
-    TextBox HSD(startX1, startY + 2 * gapY, j, 4, g, 30, 4);
-    TextBox quantity(startX1, startY + 3 * gapY, k, 9, g, 30, 4);
-    TextBox cost(startX1, startY + 4 * gapY, l, 5, g, 30, 4);
-    Button submitButton("Submit", 400, 500, 100, 50, sf::Color::Blue, sf::Color::White);
+    TextBox HSD(startX1, startY + 2 * gapY, h, 4, g, 30, 4);
+    TextBox quantity(startX1, startY + 3 * gapY, h, 9, g, 30, 4);
+    TextBox cost(startX1, startY + 4 * gapY, h, 5, g, 30, 4);
+    Button submitButton("Submit", 400, 500, 100, 50, sf::Color::Blue, sf::Color::Black);
 
     bool shouldClose = false;
 

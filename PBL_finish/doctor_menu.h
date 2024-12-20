@@ -296,7 +296,7 @@ void checkingscreen(long long ID_patient,long long ID_checking, long long ID_doc
 	Button general("Checking general", 100, 200, 200, 50, sf::Color::Blue, sf::Color::White);
 	Button Result("Result Testing", 100, 300, 200, 50, sf::Color::Blue, sf::Color::White);
 	Button Prescription("Prescription", 100, 400, 200, 50, sf::Color::Blue, sf::Color::White);
-	Button Appointment("Appointment", 100, 500, 200, 50, sf::Color::Blue, sf::Color::White);
+	Button bill("Bill", 100, 500, 200, 50, sf::Color::Blue, sf::Color::White);
 
 	static sf::Text Message("", font, 20);
 	Message.setFillColor(sf::Color::Red);
@@ -354,7 +354,9 @@ void checkingscreen(long long ID_patient,long long ID_checking, long long ID_doc
 			
 		}
 
-		if (Appointment.isClicked(mousePos)) {
+		if (bill.isClicked(mousePos)) {
+			// Hàm in hóa đơn
+			//print_bill(ID_checking, ID_doctor, record_list, testing_list, medicine_list, prescription_list);
 
 		}
 
@@ -364,7 +366,7 @@ void checkingscreen(long long ID_patient,long long ID_checking, long long ID_doc
 	general.draw(window1);
 	Result.draw(window1);
 	Prescription.draw(window1);
-	Appointment.draw(window1);
+	bill.draw(window1);
 
 
 }

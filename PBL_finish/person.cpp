@@ -23,22 +23,22 @@ void Person::set_data(sf::RenderWindow& window, sf::Event& event) {
 
 void Person::update_password() {
     sf::RenderWindow window(sf::VideoMode(400, 400), "Update password");
-    TextBox passwordBox(150, 130, 200, 18, 20, 30);
+    TextBox passwordBox(100, 160, 200, 18, 20, 30);
     sf::Font font;
     if (!font.loadFromFile("consola.ttf")) {
         cout << "Lỗi font";
         return;  // Kiểm tra xem font có thể tải hay không  
     }
-    Button Update("Update", 80, 220, 250, 70, sf::Color(135, 206, 235), sf::Color::Black);
+    Button Update("Update", 120, 250, 150, 50, sf::Color(135, 206, 235), sf::Color::Black);
 
-    sf::Text passwordt("Password:" + password, font, 20);
+    sf::Text passwordt("Old Password:" + password, font, 20);
     passwordt.setFillColor(sf::Color::Black);
-    passwordt.setPosition(55, 80); // Vị trí nhãn Password  
+    passwordt.setPosition(80, 80); // Vị trí nhãn Password  
 
 
     sf::Text passwordLabel("New Password:", font, 20);
     passwordLabel.setFillColor(sf::Color::Black);
-    passwordLabel.setPosition(05, 130); // Vị trí nhãn Password  
+    passwordLabel.setPosition(120, 130); // Vị trí nhãn Password  
     bool shouldClose = false; // Biến đánh dấu trạng thái đóng cửa sổ
 
     while (!shouldClose && window.isOpen()) { // Chỉ đóng khi cần thiết

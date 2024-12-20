@@ -62,10 +62,10 @@ public:
             << Checking::toString()
             // << "Heart Rate: " << heart << ", "
             //<< "Blood Pressure: " << blood << ", "
-            << st(diagnosis, 40)
-            //<< st(status_patient,40)
             << st((testing_or_not ? "Yes" : "No"), 13)
+            //<< st(status_patient,40)
             << st((transfer_hospital ? "Yes" : "No"), 19)
+            << st(diagnosis, 40)
             << st(final_result, 50);
         //<< "Doctor Note: " << doctor_note << ", "
         //<< "Follow-up Appointment: " << follow_up_appointment << ", "
@@ -79,10 +79,10 @@ public:
         ss << st("Id checking", 15)
             << st("Id patient", 15)
             << Checking::setheader()
-            << st("Diagnosis", 40)
-            //<< st(status_patient,40)
             << st("Testing", 13)
             << st("Transfer hospital", 19)
+            << st("Diagnosis", 40)
+            //<< st(status_patient,40)
             << st("Final result", 50);
         //<< "Doctor Note: " << doctor_note << ", "
         //<< "Follow-up Appointment: " << follow_up_appointment << ", "
